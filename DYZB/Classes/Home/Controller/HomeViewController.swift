@@ -8,7 +8,17 @@
 
 import UIKit
 
+private let kPageTitleViewH = 40.0
+
 class HomeViewController: UIViewController {
+    
+    private lazy var pageTitleView: PageTitleView = {
+        
+        let frame = CGRect(x: 0.0, y: K_NavHeight, width: Double(K_ScreenWidth), height: kPageTitleViewH)
+        let pageTitleView = PageTitleView(frame: frame, titles: ["推荐", "游戏", "娱乐", "趣玩"])
+        
+        return pageTitleView
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,16 +28,7 @@ class HomeViewController: UIViewController {
         setupUI()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    
 
 }
 
@@ -36,7 +37,9 @@ extension HomeViewController {
     
     private func setupUI() {
      
+        navigationController?.navigationBar.isTranslucent = true
         setupNavigationBar()
+        view.addSubview(pageTitleView)
     }
     
     private func setupNavigationBar() {
@@ -54,4 +57,6 @@ extension HomeViewController {
         
         navigationItem.rightBarButtonItems = [historyItem, searchItem, qrcodeItem]
     }
+    
+    
 }

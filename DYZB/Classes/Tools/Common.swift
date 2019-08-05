@@ -8,19 +8,46 @@
 
 import UIKit
 
+let kWindow = UIApplication.shared.keyWindow
+
 /// 屏幕的高
 let K_ScreenHeight = UIScreen.main.bounds.height
 
 /// 屏幕的宽
 let K_ScreenWidth = UIScreen.main.bounds.width
 
-/// 是否是iphoneX
-let K_isPhoneX = K_ScreenHeight == 812 ? true : false
-
 /// tabbar 的高度
-let K_BarHeight = K_isPhoneX ? 83.0 : 49.0
+let K_BarHeight = UIView.isPhoneX() ? 83.0 : 49.0
 
 /// 导航栏的高度
-let K_NavHeight = K_isPhoneX ? 88.0 : 64.0
+let K_NavHeight = UIView.isPhoneX() ? 88.0 : 64.0
 
+
+
+
+
+
+
+
+
+
+
+
+extension UIView {
+    
+    /// 是否是iphoneX
+    class func isPhoneX() -> Bool {
+        
+        var isPhoneX: Bool = false
+        if UIDevice.current.userInterfaceIdiom != UIUserInterfaceIdiom.phone {
+            return isPhoneX
+        }
+        if #available(iOS 11.0, *) {
+            if kWindow?.safeAreaInsets.bottom ?? 0 > CGFloat(0) {
+                isPhoneX = true
+            }
+        }
+        return isPhoneX
+    }
+}
 
