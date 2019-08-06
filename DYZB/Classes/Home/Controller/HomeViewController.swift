@@ -10,14 +10,33 @@ import UIKit
 
 private let kPageTitleViewH = 40.0
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, PageTitleViewDelegate, PageContentViewDelegate {
     
     private lazy var pageTitleView: PageTitleView = {
         
         let frame = CGRect(x: 0.0, y: K_NavHeight, width: Double(K_ScreenWidth), height: kPageTitleViewH)
         let pageTitleView = PageTitleView(frame: frame, titles: ["推荐", "游戏", "娱乐", "趣玩"])
+        pageTitleView.delegate = self
         
         return pageTitleView
+    }()
+    
+    private lazy var pageControllView: PageContentView = {[weak self] in
+       
+        let frame = CGRect(x: 0.0, y: K_NavHeight + kPageTitleViewH, width: Double(K_ScreenWidth), height: Double(K_ScreenHeight) - K_NavHeight - kPageTitleViewH - K_BarHeight)
+        
+        var childsVC = [UIViewController]()
+        childsVC.append(RecommendViewController())
+        for _ in 0..<3 {
+            let vc = UIViewController()
+            vc.view.backgroundColor = UIColor(r: CGFloat(arc4random_uniform(255)), g: CGFloat(arc4random_uniform(255)), b: CGFloat(arc4random_uniform(255)))
+            childsVC.append(vc)
+        }
+        
+        let pageControllView = PageContentView(frame: frame, childsVC: childsVC, parentVC: self)
+        pageControllView.delegate = self
+        
+        return pageControllView
     }()
 
     override func viewDidLoad() {
@@ -39,7 +58,9 @@ extension HomeViewController {
      
         navigationController?.navigationBar.isTranslucent = true
         setupNavigationBar()
+        view.backgroundColor = UIColor.white
         view.addSubview(pageTitleView)
+        view.addSubview(pageControllView)
     }
     
     private func setupNavigationBar() {
@@ -57,6 +78,20 @@ extension HomeViewController {
         
         navigationItem.rightBarButtonItems = [historyItem, searchItem, qrcodeItem]
     }
+}
+
+// MARK: pageTitleView Delegate
+extension HomeViewController {
     
+    func pageTitleView(titleView: PageTitleView, selectedIndex index: Int) {
+        pageControllView.setCurrentIndex(currentIndex: index)
+    }
+}
+
+// MARK: PageContentView Delegate
+extension HomeViewController {
     
+    func pageContentView(PageContentView: PageContentView, progress: CGFloat, sourceIndex: Int, targetIndex: Int) {
+        pageTitleView.setupTitleWithProgress(progress: progress, sourceIndex: sourceIndex, targetIndex: targetIndex)
+    }
 }
