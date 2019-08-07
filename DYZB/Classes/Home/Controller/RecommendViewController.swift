@@ -19,6 +19,15 @@ private let kHeaderViewId = "haderView"
 
 class RecommendViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
+    lazy var remommendVM: RecommendViewModel = {
+        
+        let recommendVM = RecommendViewModel()
+        
+        return recommendVM
+    }()
+    
+    lazy var dataArray = [AnchorGroup]()
+    
     lazy var collectionView: UICollectionView = {[weak self] in
         
         let layout = UICollectionViewFlowLayout()
@@ -44,6 +53,8 @@ class RecommendViewController: UIViewController, UICollectionViewDataSource, UIC
         
         // Do any additional setup after loading the view.
         setupUI()
+        
+        loadData()
     }
 }
 
@@ -57,36 +68,54 @@ extension RecommendViewController {
     }
 }
 
+// MARK: 数据请求
+extension RecommendViewController {
+    
+    private func loadData() {
+        
+        remommendVM.requestData { (data) in
+            self.dataArray = data
+            self.collectionView.reloadData()
+        }
+    }
+}
+
 // MARK: collectionView delegate
 extension RecommendViewController {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 12
+        return dataArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if section == 0 {
-            return 8
-        }
-        return 4
+        
+        let annchor = dataArray[section]
+        
+        return annchor.anchors.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        if indexPath.section == 3 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: kGirlsCellId, for: indexPath)
-
+        let annchor = dataArray[indexPath.section]
+        
+        if annchor.tag_name == "颜值" {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: kGirlsCellId, for: indexPath) as! CollectionGirlsCell
+            cell.anchor = annchor.anchors[indexPath.item]
+            
             return cell
         }
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: kNormalCellId, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: kNormalCellId, for: indexPath) as! CollectionNormalCell
+        cell.anchor = annchor.anchors[indexPath.item]
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        if indexPath.section == 3 {
+        let annchor = dataArray[indexPath.section]
+        
+        if annchor.tag_name == "颜值" {
             return CGSize(width: kItemWidth, height: kItemWidth * 4 / 3)
         }
         
@@ -95,7 +124,11 @@ extension RecommendViewController {
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
+        let annchor = dataArray[indexPath.section]
+        
         let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: kHeaderViewId, for: indexPath) as! CollectionHeaderView
+        
+        headerView.titleLabel.text = annchor.tag_name
         
         return headerView
     }
