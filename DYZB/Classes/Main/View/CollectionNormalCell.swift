@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class CollectionNormalCell: UICollectionViewCell {
 
@@ -23,8 +24,13 @@ class CollectionNormalCell: UICollectionViewCell {
             }
             titleLabel.text = anchor.room_name
             nameLabel.text = anchor.nickname
+            if anchor.online > 10000 {
+                onlineBtn.setTitle("\(Int(anchor.online / 10000))万在线", for: .normal)
+            } else {
+                onlineBtn.setTitle("\(anchor.online)在线", for: .normal)
+            }
             
-            onlineBtn.setTitle("\(anchor.online)", for: .normal)
+            showImageView.kf.setImage(with: URL(string: anchor.vertical_src ?? ""))
         }
     }
     

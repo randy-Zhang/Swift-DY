@@ -12,6 +12,7 @@ private let kItemMargin = 10.0
 private let kItemWidth = (K_ScreenWidth - 10 * 3) / 2.0
 private let kItemHeight = kItemWidth * 3 / 4.0
 private let kHeaderHeight: CGFloat = 50
+private let kCycleHeight = kItemWidth * 3 / 8.0
 
 private let kNormalCellId = "normalCell"
 private let kGirlsCellId = "girlsCell"
@@ -19,16 +20,16 @@ private let kHeaderViewId = "haderView"
 
 class RecommendViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
-    lazy var remommendVM: RecommendViewModel = {
+    private lazy var remommendVM: RecommendViewModel = {
         
         let recommendVM = RecommendViewModel()
         
         return recommendVM
     }()
     
-    lazy var dataArray = [AnchorGroup]()
+    private lazy var dataArray = [AnchorGroup]()
     
-    lazy var collectionView: UICollectionView = {[weak self] in
+    private lazy var collectionView: UICollectionView = {[weak self] in
         
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: kItemWidth, height: kItemHeight)
@@ -48,6 +49,13 @@ class RecommendViewController: UIViewController, UICollectionViewDataSource, UIC
         return collectionView
     }()
     
+    private lazy var cycleView: RecommendCycleView = {
+       
+        let cycleView = RecommendCycleView.recommendCycleView()
+        cycleView.frame = CGRect(x: 0, y: -kCycleHeight, width: K_ScreenWidth, height: kCycleHeight)
+        return cycleView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -65,6 +73,8 @@ extension RecommendViewController {
         
         view.backgroundColor = UIColor.white
         view.addSubview(collectionView)
+        collectionView.addSubview(cycleView)
+        collectionView.contentInset = UIEdgeInsets(top: kCycleHeight, left: 0, bottom: 0, right: 0)
     }
 }
 
@@ -124,12 +134,18 @@ extension RecommendViewController {
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
-        let annchor = dataArray[indexPath.section]
+        let anchor = dataArray[indexPath.section]
         
         let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: kHeaderViewId, for: indexPath) as! CollectionHeaderView
         
-        headerView.titleLabel.text = annchor.tag_name
-        
+        headerView.titleLabel.text = anchor.tag_name
+        if let imageUrl = anchor.icon_url {
+            if imageUrl.hasPrefix("http") {
+                headerView.iconImageView.kf.setImage(with: URL(string: imageUrl))
+            } else {
+                headerView.iconImageView.image = UIImage(named: imageUrl)
+            }
+        }
         return headerView
     }
 }
