@@ -12,7 +12,7 @@ private let kItemMargin = 10.0
 private let kItemWidth = (K_ScreenWidth - 10 * 3) / 2.0
 private let kItemHeight = kItemWidth * 3 / 4.0
 private let kHeaderHeight: CGFloat = 50
-private let kCycleHeight = kItemWidth * 3 / 8.0
+private let kCycleHeight = K_ScreenWidth * 3 / 8.0
 
 private let kNormalCellId = "normalCell"
 private let kGirlsCellId = "girlsCell"
