@@ -30,7 +30,7 @@ class CollectionNormalCell: UICollectionViewCell {
                 onlineBtn.setTitle("\(anchor.online)在线", for: .normal)
             }
             
-            showImageView.kf.setImage(with: URL(string: anchor.vertical_src ?? ""))
+            showImageView.kf.setImage(with: URL(string: anchor.vertical_src ?? ""), placeholder: UIImage(named: "Img_default"))
         }
     }
     

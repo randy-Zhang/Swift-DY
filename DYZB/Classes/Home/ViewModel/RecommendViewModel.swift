@@ -11,9 +11,11 @@ import UIKit
 class RecommendViewModel {
 
     
-    var anchorGroups: [AnchorGroup] = [AnchorGroup]()
+    private var anchorGroups: [AnchorGroup] = [AnchorGroup]()
     private var verticalGroups: AnchorGroup = AnchorGroup()
     private var bigDataGroups: AnchorGroup = AnchorGroup()
+    private var cycleGroup: [AnchorGroup] = [AnchorGroup]()
+    
 }
 
 extension RecommendViewModel {
@@ -99,6 +101,22 @@ extension RecommendViewModel {
             self.anchorGroups.insert(self.verticalGroups, at: 1)
             
             finishCallback(self.anchorGroups)
+        }
+    }
+    
+    func requestCycleData(finishCallBack: @escaping (_ data: [AnchorGroup]) -> ()) {
+        
+        NetworkTools.requestData(type: .GET, url: "http://www.douyutv.com/api/v1/slide/6", parameters: ["version" : "2.300"]) { (resualt) in
+            
+            guard let data = resualt as? [String : NSObject] else {return}
+            
+            guard let array = data["data"] as? [[String : NSObject]] else {return}
+            
+            for dic in array {
+                
+                self.cycleGroup.append(AnchorGroup(dic: dic))
+            }
+            finishCallBack(self.cycleGroup)
         }
     }
 }

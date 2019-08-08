@@ -32,6 +32,28 @@ class AnchorGroup: NSObject {
     
     lazy var anchors: [AnchorModel] = [AnchorModel]()
     
+    // MARK: 轮播图属性
+    
+    /// 昵称
+    @objc var title: String?
+    
+    /// 轮播图url
+    @objc var pic_url: String?
+    
+    /// 轮播图对应的主播
+    @objc var cycleAnchor: AnchorModel?
+    
+    @objc var room: [String : NSObject]? {
+        
+        didSet {
+            
+            guard let room = room else {
+                return
+            }
+            cycleAnchor = AnchorModel.init(dic: room)
+        }
+    }
+    
     init(dic: [String: NSObject]) {
         super.init()
         
