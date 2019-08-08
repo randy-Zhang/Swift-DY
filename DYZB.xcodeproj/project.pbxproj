@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -35,6 +35,8 @@
 		81FD99F922F82E2B00738ABC /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FD99F822F82E2B00738ABC /* Common.swift */; };
 		CD41E40D22F867C10065960D /* PageTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD41E40C22F867C10065960D /* PageTitleView.swift */; };
 		CD41E40F22F87B610065960D /* PageContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD41E40E22F87B610065960D /* PageContentView.swift */; };
+		CD75A52F22FB1E18001B3A43 /* RecommendCycleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD75A52E22FB1E18001B3A43 /* RecommendCycleView.swift */; };
+		CD75A53122FB1E2E001B3A43 /* RecommendCycleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD75A53022FB1E2E001B3A43 /* RecommendCycleView.xib */; };
 		FF351F1A14936A08F8F8030B /* Pods_DYZB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BAC1977024FFEF39455443C /* Pods_DYZB.framework */; };
 /* End PBXBuildFile section */
 
@@ -93,6 +95,8 @@
 		BD2AB7B025E6A8FFA1861F35 /* Pods-DYZB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DYZB.release.xcconfig"; path = "Target Support Files/Pods-DYZB/Pods-DYZB.release.xcconfig"; sourceTree = "<group>"; };
 		CD41E40C22F867C10065960D /* PageTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageTitleView.swift; sourceTree = "<group>"; };
 		CD41E40E22F87B610065960D /* PageContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageContentView.swift; sourceTree = "<group>"; };
+		CD75A52E22FB1E18001B3A43 /* RecommendCycleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendCycleView.swift; sourceTree = "<group>"; };
+		CD75A53022FB1E2E001B3A43 /* RecommendCycleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecommendCycleView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -320,6 +324,8 @@
 				8103CDC422F9743E00D9E723 /* CollectionNormalCell.xib */,
 				8103CDC722F97A1000D9E723 /* CollectionGirlsCell.swift */,
 				8103CDC822F97A1000D9E723 /* CollectionGirlsCell.xib */,
+				CD75A52E22FB1E18001B3A43 /* RecommendCycleView.swift */,
+				CD75A53022FB1E2E001B3A43 /* RecommendCycleView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -437,6 +443,7 @@
 				81FD99B122F803C200738ABC /* Main.storyboard in Resources */,
 				8103CDCA22F97A1000D9E723 /* CollectionGirlsCell.xib in Resources */,
 				81FD99E722F8170000738ABC /* Live.storyboard in Resources */,
+				CD75A53122FB1E2E001B3A43 /* RecommendCycleView.xib in Resources */,
 				81FD99E422F816D700738ABC /* Home.storyboard in Resources */,
 				81FD99ED22F8173100738ABC /* Profile.storyboard in Resources */,
 				81FD99EA22F8171700738ABC /* Follow.storyboard in Resources */,
@@ -466,16 +473,11 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DYZB/Pods-DYZB-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-DYZB/Pods-DYZB-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-DYZB/Pods-DYZB-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -526,6 +528,7 @@
 				8103CDC522F9743E00D9E723 /* CollectionNormalCell.swift in Sources */,
 				8101226322FA7C0E00C88C2D /* NetworkTools.swift in Sources */,
 				81FD99F422F81B6800738ABC /* HomeViewController.swift in Sources */,
+				CD75A52F22FB1E18001B3A43 /* RecommendCycleView.swift in Sources */,
 				8185EF1022FAB34400127BAA /* RecommendViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

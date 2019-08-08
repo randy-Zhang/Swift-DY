@@ -23,8 +23,13 @@ class CollectionGirlsCell: UICollectionViewCell {
             }
             
             cityBtn.setTitle(anchor.anchor_city, for: .normal)
-            onlineLabel.text = "\(anchor.online)在线"
+            if anchor.online > 10000 {
+                onlineLabel.text = "\(Int(anchor.online / 10000))万在线"
+            } else {
+                onlineLabel.text = "\(anchor.online)在线"
+            }
             nameLabel.text = anchor.nickname
+            showImageView.kf.setImage(with: URL(string: anchor.vertical_src ?? ""))
         }
     }
     
